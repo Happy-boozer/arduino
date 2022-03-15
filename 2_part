@@ -1,0 +1,25 @@
+#include <Gyver433.h>
+Gyver433_RX<2, 2> rx;  // указали пин и размер буфера
+int RED = 7;
+void setup() { 
+  pinMode(RED, OUTPUT);
+  Serial.begin(9600);  
+  attachInterrupt(0, isr, CHANGE);  // прерывание пина радио по CHANGE
+}
+// спец. тикер вызывается в прерывании
+void isr() {
+  rx.tickISR();
+}
+void loop() {
+  if (rx.gotData()) {                   // если успешно принято больше 0
+   // Serial.write(rx.buffer, rx.size);   // выводим
+    //Serial.println(); 
+     
+    Serial.println(rx.buffer[0]);
+    if (rx.buffer[0] ==  49){
+       digitalWrite(RED, HIGH);
+    }else{digitalWrite(RED, LOW);}
+
+  }
+  
+}
