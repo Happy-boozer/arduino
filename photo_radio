@@ -1,0 +1,28 @@
+#define PIN_LED 13
+#define PIN_PHOTO_SENSOR A0
+#include <Gyver433.h>
+Gyver433_TX<2> tx;  // указали пин
+void setup() {
+  Serial.begin(9600);
+  pinMode(PIN_LED, OUTPUT);
+}
+int val = 0;
+void loop() {
+  val = analogRead(PIN_PHOTO_SENSOR);
+  Serial.println(val);
+  
+  if(val <= 800 && val>=600){
+    tx.sendData("Night");
+  }
+
+  if(val <= 599 && val>=400){
+    tx.sendData("Eeven");
+  }
+  
+  if(val <= 399 && val>=300){
+    tx.sendData("Day");
+  }
+  
+  
+  delay(100);
+}
