@@ -1,0 +1,27 @@
+#define LASER 10 // задаем имя для Pin10
+#define PIN_PHOTO_SENSOR_1 A0
+#define PIN_PHOTO_SENSOR_2 A1
+#define PIN_LED 13
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LASER, OUTPUT);
+}
+int val = 0;
+int lav = 0;
+void loop() {
+  
+  digitalWrite(LASER, HIGH);
+  delay(300);
+  lav = analogRead(PIN_PHOTO_SENSOR_2);
+  val = analogRead(PIN_PHOTO_SENSOR_1);
+  //Serial.println(lav);
+  //Serial.println(val);
+  if (val < 690){
+    Serial.println("1");
+  }
+  if (lav < 690) {
+    Serial.println("2");
+  }
+   delay(30);
+}
